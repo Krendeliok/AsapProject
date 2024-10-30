@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+    web:
+        build: ./src
+        container_name: books_web
+        ports:
+        - "5000:5000"
+        volumes:
+        - ./src:/app
+        depends_on:
+        - books_db
+    books_db:
+        image: postgres:17-alpine
+        volumes:
+        - postgres_data:/var/lib/postgresql/data
+        environment:
+            POSTGRES_DB: books
+            POSTGRES_USER: admin
+            POSTGRES_PASSWORD: admin
+
+volumes:
+    postgres_data:
